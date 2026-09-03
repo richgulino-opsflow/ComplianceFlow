@@ -54,7 +54,7 @@ async function updateStage(
   loadItems()
 }
 async function saveDetails() {
-  if (!selectedItem) return
+if (!selectedItem) return
 
   const { error } = await supabase
     .from('work_items')
@@ -74,6 +74,30 @@ async function saveDetails() {
   await loadItems()
 
   alert('Changes Saved')
+}
+
+async function deleteItem() {
+  if (!selectedItem) return
+
+  const confirmed = window.confirm(
+    'Are you sure you want to delete this work item?'
+  )
+
+  if (!confirmed) return
+
+  const { error } = await supabase
+    .from('work_items')
+    .delete()
+    .eq('id', selectedItem.id)
+
+  if (error) {
+    console.log(error)
+    return
+  }
+
+  setSelectedItem(null)
+
+  await loadItems()
 }
   async function addItem() {
     if (!title.trim()) return
@@ -291,8 +315,23 @@ Owner:
   }}
 >
   Save Changes
+
 </button>
-  </div>
+<button
+onClick={deleteItem}
+style={{
+width: '100%',
+padding: '10px',
+marginTop: '10px',
+background: 'red',
+color: 'white'
+}}
+>
+Delete Work Item
+</button>
+
+  
+</div>
 )}
     </div>
   )
