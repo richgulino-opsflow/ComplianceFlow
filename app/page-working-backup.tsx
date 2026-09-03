@@ -149,7 +149,7 @@ async function saveDetails() {
 
   setEditOwner(item.owner || '')
   setEditDescription(item.description || '')
-  setEditDueDate( item.due_date ? item.due_date.substring(0, 10) : '' )
+  setEditDueDate(item.due_date || '')
   setEditPriority(item.priority || 'Medium')
 }}
   style={{
@@ -211,8 +211,8 @@ async function saveDetails() {
     <h2>{selectedItem.title}</h2>
 
     <p>
-Owner:
-      <input value={editOwner} onChange={(e) => setEditOwner(e.target.value)} style={{ width: '100%', padding: '8px', marginBottom: '10px' }} />
+      <strong>Owner:</strong>{' '}
+      {selectedItem.owner || 'Not Assigned'}
     </p>
 
     <p>
