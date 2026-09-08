@@ -3,13 +3,15 @@ export default function ActivityHistory({ activity }: any) {
     <div>
       Activity History
 
-Records: 3
+Records: {activity.length}
+If activity.length equals 0
+show:
+No activity found
+entry.action
 
-First Action:
-Created
+entry.details
 
-Details:
-Work item created
+entry.created_at
     </div>
   )
 }
