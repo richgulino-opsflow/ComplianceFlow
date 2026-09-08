@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import ActivityHistory from '../components/ActivityHistory'
 import { supabase } from '../lib/supabase'
 
 const stages = [
@@ -22,6 +23,7 @@ const [editOwner, setEditOwner] = useState('')
 const [editDescription, setEditDescription] = useState('')
 const [editDueDate, setEditDueDate] = useState('')
 const [editPriority, setEditPriority] = useState('')
+const [activity, setActivity] = useState<any[]>([])
   useEffect(() => {
     loadItems()
   }, [])
@@ -305,6 +307,7 @@ Owner:
   <option>High</option>
   <option>Critical</option>
 </select>
+<ActivityHistory activity={activity} />
 <button
   onClick={saveDetails}
   style={{
