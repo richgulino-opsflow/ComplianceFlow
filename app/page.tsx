@@ -36,6 +36,15 @@ const [activity, setActivity] = useState<any[]>([])
 
     setItems(data || [])
   }
+async function loadActivity(workItemId: string) {
+  const { data } = await supabase
+    .from('activity_log')
+    .select('*')
+    .eq('work_item_id', workItemId)
+    .order('created_at', { ascending: false })
+
+  setActivity(data || [])
+}
 async function updateStage(
   id: string,
   stage: string
@@ -72,7 +81,15 @@ if (!selectedItem) return
     console.log(error)
     return
   }
-
+await supabase
+.from('activity_log')
+.insert([
+{
+work_item_id: selectedItem.id,
+action: 'Details Updated',
+details: `Owner: ${editOwner}, Priority: ${editPriority}, Due Date: ${editDueDate}`
+}
+])
   await loadItems()
 
   alert('Changes Saved')
@@ -172,12 +189,13 @@ async function deleteItem() {
   key={item.id}
   onClick={() => {
   setSelectedItem(item)
-
+loadActivity(item.id)
   setEditOwner(item.owner || '')
   setEditDescription(item.description || '')
   setEditDueDate( item.due_date ? item.due_date.substring(0, 10) : '' )
   setEditPriority(item.priority || 'Medium')
 }}
+
   style={{
                     background: 'white',
                     padding: '10px',

@@ -3,15 +3,19 @@ export default function ActivityHistory({ activity }: any) {
     <div>
       Activity History
 
-Records: {activity.length}
-If activity.length equals 0
-show:
-No activity found
-entry.action
+      <p>Records: {activity.length}</p>
+{activity.length === 0 && (
+<p>No activity found</p>
+)}
+{activity.map((entry: any) => (
+<div key={entry.id}>
+<p>{entry.action}</p>
+<p>{entry.details}</p>
+<p>{entry.created_at}</p>
+<hr />
+</div>
+))}
 
-entry.details
-
-entry.created_at
     </div>
   )
 }
