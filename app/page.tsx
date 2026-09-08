@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import ActivityHistory from '../components/ActivityHistory'
+import Tasks from '../components/Tasks'
 import { supabase } from '../lib/supabase'
 
 const stages = [
@@ -24,6 +25,8 @@ const [editDescription, setEditDescription] = useState('')
 const [editDueDate, setEditDueDate] = useState('')
 const [editPriority, setEditPriority] = useState('')
 const [activity, setActivity] = useState<any[]>([])
+const [tasks, setTasks] = useState<any[]>([])
+const [newTask, setNewTask] = useState('')
   useEffect(() => {
     loadItems()
   }, [])
@@ -44,6 +47,30 @@ async function loadActivity(workItemId: string) {
     .order('created_at', { ascending: false })
 
   setActivity(data || [])
+}
+async function loadTasks(workItemId: string) {
+const { data } = await supabase
+.from('task_items')
+.select('*')
+.eq('work_item_id', workItemId)
+.order('created_at', { ascending: true })
+
+setTasks(data || [])
+}
+async function addTask() {
+  if (!selectedItem) return
+if (!newTask.trim()) return
+await supabase
+.from('task_items')
+.insert([
+{
+work_item_id: selectedItem.id,
+title: newTask,
+completed: false
+}
+])
+setNewTask('')
+loadTasks(selectedItem.id)
 }
 async function updateStage(
   id: string,
@@ -190,6 +217,7 @@ async function deleteItem() {
   onClick={() => {
   setSelectedItem(item)
 loadActivity(item.id)
+loadTasks(item.id)
   setEditOwner(item.owner || '')
   setEditDescription(item.description || '')
   setEditDueDate( item.due_date ? item.due_date.substring(0, 10) : '' )
@@ -326,6 +354,12 @@ Owner:
   <option>Critical</option>
 </select>
 <ActivityHistory activity={activity} />
+<Tasks
+  tasks={tasks}
+  newTask={newTask}
+  setNewTask={setNewTask}
+  addTask={addTask}
+/>
 <button
   onClick={saveDetails}
   style={{
