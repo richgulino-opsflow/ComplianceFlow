@@ -83,7 +83,23 @@ completed: !completed
 })
 .eq('id', taskId)
 if (selectedItem) {
-loadTasks(selectedItem.id)
+await loadTasks(selectedItem.id)
+const updatedTasks = await supabase
+.from('task_items')
+.select('*')
+.eq('work_item_id', selectedItem.id)
+const allComplete =
+updatedTasks.data?.every((t: any) => t.completed)
+if (updatedTasks.data && updatedTasks.data.length > 0 && allComplete) {
+await supabase
+.from('work_items')
+.update({
+stage: 'Complete',
+status: 'Complete'
+})
+.eq('id', selectedItem.id)
+}
+await loadItems()
 }
 }
 async function updateStage(
