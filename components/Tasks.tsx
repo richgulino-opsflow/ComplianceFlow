@@ -1,19 +1,37 @@
 export default function Tasks({
   tasks,
-  toggleTaskComplete
+  toggleTaskComplete,
+  newTask,
+  setNewTask,
+  addTask
 }: any) {
 return (
 <div>
-Tasks
-Count: {tasks.length}
-Progress:
-
-{Math.round(
+<div>Tasks</div>
+<div>Count: {tasks.length}</div>
+<div>Progress:</div>
+{tasks.length === 0
+? 0
+: Math.round(
 (tasks.filter((t: any) => t.completed).length / tasks.length) * 100
 )}%
-Tasks:
-
+<div>Tasks:</div>
 <div>
+<div>
+<div>New Task:</div>
+
+<input
+value={newTask}
+onChange={(e) => setNewTask(e.target.value)}
+/>
+
+<button
+onClick={addTask}
+style={{ marginLeft: '5px' }}
+>
+Add Task
+</button>
+</div>
 <div
 style={{
 width: '100%',
@@ -47,47 +65,6 @@ task.completed
 </span>
 </div>
 ))}
-
-<span
-onClick={() =>
-toggleTaskComplete(
-tasks[0]?.id,
-tasks[0]?.completed
-)
-}
->
-
-</span>
-<span
-onClick={() =>
-toggleTaskComplete(
-tasks[1]?.id,
-tasks[1]?.completed
-)
-}
->
-
-</span>
-<span
-onClick={() =>
-toggleTaskComplete(
-tasks[2]?.id,
-tasks[2]?.completed
-)
-}
->
-
-</span>
-<span
-onClick={() =>
-toggleTaskComplete(
-tasks[3]?.id,
-tasks[3]?.completed
-)
-}
->
-
-</span>
 </div>
 )
 }

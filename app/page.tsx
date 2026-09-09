@@ -226,7 +226,7 @@ async function deleteItem() {
   marginBottom: 20
 }}>
 
-<b>Dashboard</b>
+<h3>Dashboard</h3>
 <div style={{ height: '10px' }}></div>
 <div>
 
