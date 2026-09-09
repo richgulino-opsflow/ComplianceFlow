@@ -203,22 +203,54 @@ async function deleteItem() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="New Work Item"
+
           style={{
             padding: 10,
             width: 300,
             border: '1px solid #ccc',
             marginRight: 10,
           }}
-        />
 
-        <button
-          onClick={addItem}
-          style={{
-            padding: '10px 20px',
-          }}
-        >
-          Create
-        </button>
+        />
+<button
+  onClick={addItem}
+  style={{
+    padding: '10px 20px',
+  }}
+>
+  Create
+</button>
+<div style={{
+  border: '1px solid #ccc',
+  padding: 15,
+  marginBottom: 20
+}}>
+
+<b>Dashboard</b>
+<div style={{ height: '10px' }}></div>
+<div>
+
+Open Items: {items.length}
+</div>
+<div>
+Completed Items: {items.filter((i: any) => i.stage === 'Complete').length}
+</div>
+<div>
+Planning: {items.filter((i: any) => i.stage === 'Planning').length}
+</div>
+<div>
+Intake: {items.filter((i: any) => i.stage === 'Intake').length}
+</div>
+In Progress:
+{items.filter((i: any) => i.stage === 'In Progress').length}
+</div>
+<div>
+Completion Rate:
+{Math.round(
+(items.filter((i: any) => i.stage === 'Complete').length / items.length) * 100
+)}%
+</div>
+       
       </div>
 
       <div
@@ -392,10 +424,44 @@ Owner:
   addTask={addTask}
 toggleTaskComplete={toggleTaskComplete}
 />
-Completed Date:
-{selectedItem?.completed_date
-  ? new Date(selectedItem.completed_date).toLocaleDateString()
-  : ''}
+<div>
+<div style={{ height: '10px' }}></div>
+  Created Date:
+</div>
+
+<div>
+  {selectedItem?.created_at
+    ? new Date(selectedItem.created_at).toLocaleDateString()
+    : ''}
+</div>
+<div style={{ height: '10px' }}></div>
+<div></div>
+<div>
+  Completed Date:
+</div>
+
+<div>
+  {selectedItem?.completed_date
+    ? new Date(selectedItem.completed_date).toLocaleDateString()
+    : ''}
+</div><div></div>
+<div>
+<div style={{ height: '10px' }}></div>
+  Duration:
+</div>
+
+<div>
+  {selectedItem?.completed_date
+    ? Math.ceil(
+        (
+          new Date(selectedItem.completed_date).getTime() -
+          new Date(selectedItem.created_at).getTime()
+        ) / (1000 * 60 * 60 * 24)
+      )
+    : ''}
+  {' days'}
+</div>
+<div style={{ height: '10px' }}></div>
 <button
   onClick={saveDetails}
   style={{
