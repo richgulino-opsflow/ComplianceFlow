@@ -72,6 +72,20 @@ completed: false
 setNewTask('')
 loadTasks(selectedItem.id)
 }
+async function toggleTaskComplete(
+  taskId: string,
+  completed: boolean
+) {
+await supabase
+.from('task_items')
+.update({
+completed: !completed
+})
+.eq('id', taskId)
+if (selectedItem) {
+loadTasks(selectedItem.id)
+}
+}
 async function updateStage(
   id: string,
   stage: string
@@ -359,6 +373,7 @@ Owner:
   newTask={newTask}
   setNewTask={setNewTask}
   addTask={addTask}
+toggleTaskComplete={toggleTaskComplete}
 />
 <button
   onClick={saveDetails}
