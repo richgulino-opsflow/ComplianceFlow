@@ -6,7 +6,33 @@ return (
 <div>
 Tasks
 Count: {tasks.length}
+Progress:
+
+{Math.round(
+(tasks.filter((t: any) => t.completed).length / tasks.length) * 100
+)}%
 Tasks:
+
+<div>
+<div
+style={{
+width: '100%',
+height: '10px',
+backgroundColor: '#ddd'
+}}
+>
+<div
+style={{
+width: `${Math.round(
+(tasks.filter((t: any) => t.completed).length / tasks.length) * 100
+)}%`,
+height: '10px',
+backgroundColor: 'green'
+}}
+/>
+</div>
+</div>
+
 {tasks.map((task: any) => (
 <div key={task.id}>
 <span
