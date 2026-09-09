@@ -95,7 +95,8 @@ await supabase
 .from('work_items')
 .update({
 stage: 'Complete',
-status: 'Complete'
+status: 'Complete',
+completed_date: new Date().toISOString()
 })
 .eq('id', selectedItem.id)
 }
@@ -391,6 +392,10 @@ Owner:
   addTask={addTask}
 toggleTaskComplete={toggleTaskComplete}
 />
+Completed Date:
+{selectedItem?.completed_date
+  ? new Date(selectedItem.completed_date).toLocaleDateString()
+  : ''}
 <button
   onClick={saveDetails}
   style={{
@@ -400,8 +405,8 @@ toggleTaskComplete={toggleTaskComplete}
     color: 'white'
   }}
 >
-  Save Changes
 
+  Save Changes
 </button>
 <button
 onClick={deleteItem}
