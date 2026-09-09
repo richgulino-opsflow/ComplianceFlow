@@ -3,12 +3,11 @@ return (
 <div>
 Tasks
 Count: {tasks.length}
+Tasks:
 
-
-Task List:
-Current Task:
 {tasks[0]?.title}
-New Task
+{tasks[1]?.title}
+{tasks[2]?.title}
 </div>
 )
 }
