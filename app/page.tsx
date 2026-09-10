@@ -410,15 +410,26 @@ item.priority === 'High'
 : item.priority === 'Medium'
 ? '#d97706'
 : '#16a34a',
+
 backgroundColor:
 item.priority === 'High'
 ? '#fee2e2'
 : item.priority === 'Medium'
 ? '#fef3c7'
 : '#dcfce7',
-padding: '2px 8px',
+
+padding: '4px 10px',
+
 borderRadius: '12px',
+
 display: 'inline-block',
+
+fontWeight: 'bold',
+
+fontSize: '12px',
+
+marginTop: '4px'
+
 }}
 >
 
