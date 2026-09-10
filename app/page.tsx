@@ -267,7 +267,18 @@ Completion Rate:
 (items.filter((i: any) => i.stage === 'Complete').length / items.length) * 100
 )}%
 </div>  
-<div>
+<div
+style={{
+backgroundColor: '#fef3c7',
+padding: '10px',
+borderRadius: '8px',
+maxWidth: '200px',
+marginBottom: '10px',
+fontWeight: 'bold',
+marginTop: '5px'
+}}
+>
+
 ⚠️ Overdue Items: {
 items.filter(
 (i: any) =>
@@ -282,8 +293,9 @@ style={{
 backgroundColor: '#fee2e2',
 padding: '10px',
 borderRadius: '8px',
-maxWidth: '200px',
+maxWidth: '225px',
 marginBottom: '10px',
+fontWeight: 'bold',
 marginTop: '5px'
 }}
 >
