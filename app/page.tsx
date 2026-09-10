@@ -277,8 +277,19 @@ i.stage !== 'Complete'
 ).length
 }
 </div>
-<div>
+<div
+style={{
+backgroundColor: '#fee2e2',
+padding: '10px',
+borderRadius: '8px',
+maxWidth: '200px',
+marginBottom: '10px',
+marginTop: '5px'
+}}
+>
+
 🔴 High Priority Items: {
+
 items.filter(
 (i: any) => i.priority === 'High'
 ).length
@@ -441,7 +452,8 @@ padding: '4px 10px',
 borderRadius: '12px',
 
 display: 'inline-block',
-
+width: '200px',
+textAlign: 'center',
 fontWeight: 'bold',
 
 fontSize: '12px',
