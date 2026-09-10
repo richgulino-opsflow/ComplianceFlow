@@ -72,6 +72,15 @@ completed: false
 setNewTask('')
 loadTasks(selectedItem.id)
 }
+async function deleteTask(taskId: string) {
+await supabase
+.from('task_items')
+.delete()
+.eq('id', taskId)
+if (selectedItem) {
+await loadTasks(selectedItem.id)
+}
+}
 async function toggleTaskComplete(
   taskId: string,
   completed: boolean
@@ -422,6 +431,7 @@ Owner:
   newTask={newTask}
   setNewTask={setNewTask}
   addTask={addTask}
+deleteTask={deleteTask}
 toggleTaskComplete={toggleTaskComplete}
 />
 <div>
