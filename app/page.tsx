@@ -308,11 +308,18 @@ loadTasks(item.id)
                     padding: '10px',
                     marginBottom: '10px',
                     borderRadius: '6px',
-                    border: '1px solid #ddd',
+border:
+item.due_date &&
+new Date(item.due_date) < new Date() &&
+item.stage !== 'Complete'
+? '2px solid #dc2626'
+: '1px solid #ccc',
                   }}
                 >
                   <strong>{item.title}</strong>
-
+<div>
+📅 Due: {new Date(item.due_date).toLocaleDateString()}
+</div>
 
 <div>
 📋 Tasks: {
@@ -395,8 +402,15 @@ backgroundColor: 'green'
 </div>
 </div>
                   ⚡ {item.priority}
-
-
+<div>
+{
+item.due_date &&
+new Date(item.due_date) < new Date() &&
+item.stage !== 'Complete'
+? '⚠️ Overdue'
+: ''
+}
+</div>
 <select
   value={item.stage}
   onChange={(e) => updateStage(item.id, e.target.value)}
