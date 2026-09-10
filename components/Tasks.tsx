@@ -74,7 +74,11 @@ task.completed
 }
 >
 {task.completed ? '☑' : '☐'} {task.title}<span
-onClick={() => deleteTask(task.id)}
+onClick={() => {
+if (confirm('Delete this task?')) {
+deleteTask(task.id)
+}
+}}
 >
 ❌
 </span>
