@@ -277,7 +277,13 @@ i.stage !== 'Complete'
 ).length
 }
 </div>
-
+<div>
+🔴 High Priority Items: {
+items.filter(
+(i: any) => i.priority === 'High'
+).length
+}
+</div>
   </div>   
       </div>
 
