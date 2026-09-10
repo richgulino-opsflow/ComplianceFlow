@@ -321,7 +321,28 @@ allTasks.filter(
 ).length
 }
 <div>
-✅ Progress:{
+{
+allTasks.filter((t: any) => t.work_item_id === item.id).length === 0
+? '🔴'
+:
+Math.round(
+(
+allTasks.filter(
+(t: any) =>
+t.work_item_id === item.id &&
+t.completed
+).length
+/
+allTasks.filter(
+(t: any) =>
+t.work_item_id === item.id
+).length
+) * 100
+) === 100
+? '🟢'
+: '🟡'
+}
+📈 Progress:{
 allTasks.filter((t: any) => t.work_item_id === item.id).length === 0
 ? 0
 : Math.round(
@@ -339,6 +360,38 @@ t.work_item_id === item.id
 ) * 100
 )
 }%
+<div
+style={{
+width: '100%',
+height: '6px',
+backgroundColor: '#ddd'
+}}
+>
+</div>
+<div
+style={{
+width: `${
+allTasks.filter((t: any) => t.work_item_id === item.id).length === 0
+? 0
+: Math.round(
+(
+allTasks.filter(
+(t: any) =>
+t.work_item_id === item.id &&
+t.completed
+).length
+/
+allTasks.filter(
+(t: any) =>
+t.work_item_id === item.id
+).length
+) * 100
+)
+}%`,
+height: '6px',
+backgroundColor: 'green'
+}}
+/>
 </div>
 </div>
                   ⚡ {item.priority}
