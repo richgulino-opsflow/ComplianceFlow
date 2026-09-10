@@ -26,11 +26,18 @@ const [editDueDate, setEditDueDate] = useState('')
 const [editPriority, setEditPriority] = useState('')
 const [activity, setActivity] = useState<any[]>([])
 const [tasks, setTasks] = useState<any[]>([])
+const [allTasks, setAllTasks] = useState<any[]>([])
 const [newTask, setNewTask] = useState('')
   useEffect(() => {
-    loadItems()
+loadAllTasks()    
+loadItems()
   }, [])
-
+async function loadAllTasks() {
+const { data } = await supabase
+.from('task_items')
+.select('*')
+setAllTasks(data || [])
+}
   async function loadItems() {
     const { data } = await supabase
       .from('work_items')
@@ -306,7 +313,36 @@ loadTasks(item.id)
                 >
                   <strong>{item.title}</strong>
 
-                  <div>{item.priority}</div>
+
+<div>
+📋 Tasks: {
+allTasks.filter(
+(t: any) => t.work_item_id === item.id
+).length
+}
+<div>
+✅ Progress:{
+allTasks.filter((t: any) => t.work_item_id === item.id).length === 0
+? 0
+: Math.round(
+(
+allTasks.filter(
+(t: any) =>
+t.work_item_id === item.id &&
+t.completed
+).length
+/
+allTasks.filter(
+(t: any) =>
+t.work_item_id === item.id
+).length
+) * 100
+)
+}%
+</div>
+</div>
+                  ⚡ {item.priority}
+
 
 <select
   value={item.stage}
