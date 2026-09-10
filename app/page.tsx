@@ -401,7 +401,30 @@ backgroundColor: 'green'
 />
 </div>
 </div>
-                  ⚡ {item.priority}
+                  {
+<div
+style={{
+color:
+item.priority === 'High'
+? '#dc2626'
+: item.priority === 'Medium'
+? '#d97706'
+: '#16a34a',
+backgroundColor:
+item.priority === 'High'
+? '#fee2e2'
+: item.priority === 'Medium'
+? '#fef3c7'
+: '#dcfce7',
+padding: '2px 8px',
+borderRadius: '12px',
+display: 'inline-block',
+}}
+>
+
+{item.priority}
+</div>
+}
 <div>
 {
 item.due_date &&
