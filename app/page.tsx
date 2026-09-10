@@ -256,6 +256,7 @@ Planning: {items.filter((i: any) => i.stage === 'Planning').length}
 </div>
 <div>
 Intake: {items.filter((i: any) => i.stage === 'Intake').length}
+<div>
 </div>
 In Progress:
 {items.filter((i: any) => i.stage === 'In Progress').length}
@@ -265,8 +266,19 @@ Completion Rate:
 {Math.round(
 (items.filter((i: any) => i.stage === 'Complete').length / items.length) * 100
 )}%
+</div>  
+<div>
+⚠️ Overdue Items: {
+items.filter(
+(i: any) =>
+i.due_date &&
+new Date(i.due_date) < new Date() &&
+i.stage !== 'Complete'
+).length
+}
 </div>
-       
+
+  </div>   
       </div>
 
       <div
