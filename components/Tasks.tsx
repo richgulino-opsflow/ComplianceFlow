@@ -6,16 +6,22 @@ export default function Tasks({
   addTask,
 deleteTask,
 }: any) {
+const completedTasks = tasks.filter((task: any) => task.completed).length
+const progress = tasks.length === 0
+? 0
+: Math.round((completedTasks / tasks.length) * 100)
 return (
 <div>
 <div>Tasks</div>
 <div>Count: {tasks.length}</div>
-<div>Progress:</div>
+<div>
+Progress:
 {tasks.length === 0
 ? 0
 : Math.round(
 (tasks.filter((t: any) => t.completed).length / tasks.length) * 100
 )}%
+</div>
 <div>Tasks:</div>
 <div>
 <div>
