@@ -21,6 +21,7 @@ const [title, setTitle] = useState('')
 const [selectedItem, setSelectedItem] =
   useState<any | null>(null)
 const [editOwner, setEditOwner] = useState('')
+const [editTitle, setEditTitle] = useState('')
 const [editDescription, setEditDescription] = useState('')
 const [editDueDate, setEditDueDate] = useState('')
 const [editPriority, setEditPriority] = useState('')
@@ -140,10 +141,12 @@ async function updateStage(
 }
 async function saveDetails() {
 if (!selectedItem) return
+if (!confirm('Save changes to this work item?')) return
 
   const { error } = await supabase
     .from('work_items')
     .update({
+title: editTitle,
       owner: editOwner,
       description: editDescription,
       due_date: editDueDate || null,
@@ -338,6 +341,7 @@ items.filter(
   setSelectedItem(item)
 loadActivity(item.id)
 loadTasks(item.id)
+setEditTitle(item.title || '')
   setEditOwner(item.owner || '')
   setEditDescription(item.description || '')
   setEditDueDate( item.due_date ? item.due_date.substring(0, 10) : '' )
@@ -358,6 +362,25 @@ item.stage !== 'Complete'
                   }}
                 >
                   <strong>{item.title}</strong>
+<div
+style={{
+padding: '4px 10px',
+borderRadius: '12px',
+display: 'inline-block',
+
+marginTop: '4px',
+backgroundColor:
+item.stage === 'Planning'
+? '#dbeafe'
+: item.stage === 'Intake'
+? '#e5e7eb'
+: item.stage === 'In Progress'
+? '#fed7aa'
+: '#dcfce7'
+}}
+>
+{item.stage}
+</div>
 <div>
 📅 Due: {new Date(item.due_date).toLocaleDateString()}
 </div>
@@ -534,6 +557,15 @@ item.stage !== 'Complete'
     <h2>{selectedItem.title}</h2>
 
     <p>
+<div>Title</div>
+<input
+value={editTitle}
+onChange={(e) => setEditTitle(e.target.value)}
+style={{
+width: '100%',
+padding: '5px'
+}}
+/>
 Owner:
       <input value={editOwner} onChange={(e) => setEditOwner(e.target.value)} style={{ width: '100%', padding: '8px', marginBottom: '10px' }} />
     </p>
@@ -556,6 +588,10 @@ Owner:
     <p>
   <strong>Description:</strong>
 </p>
+
+<button onClick={saveDetails}>
+Save Changes
+</button>
 
 <textarea
   value={editDescription}
