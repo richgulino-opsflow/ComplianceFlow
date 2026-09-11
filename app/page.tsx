@@ -572,13 +572,21 @@ value={editTitle}
 onChange={(e) => setEditTitle(e.target.value)}
 style={{
 width: '100%',
-padding: '5px',
+padding: '8px',
 fontSize: '14px',
-marginBottom: '4px'
+marginBottom: '10px',
+border: '1px solid #d1d5db',
+borderRadius: '6px'
 }}
 />
 Owner:
-      <input value={editOwner} onChange={(e) => setEditOwner(e.target.value)} style={{ width: '100%', padding: '8px', marginBottom: '10px' }} />
+      <input value={editOwner} onChange={(e) => setEditOwner(e.target.value)} style={{
+width: '100%',
+padding: '8px',
+marginBottom: '10px',
+border: '1px solid #d1d5db',
+borderRadius: '6px'
+}} />
     </p>
 
     <p>
@@ -610,7 +618,10 @@ Owner:
   rows={5}
   style={{
     width: '100%',
-    padding: '8px'
+    padding: '8px',
+border: '1px solid #d1d5db',
+borderRadius: '6px',
+resize: 'vertical'
   }}
 />
 <p>
