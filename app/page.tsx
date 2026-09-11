@@ -117,6 +117,17 @@ completed_date: new Date().toISOString()
 })
 .eq('id', selectedItem.id)
 }
+if (updatedTasks.data && updatedTasks.data.length > 0 && !allComplete) {
+await supabase
+.from('work_items')
+.update({
+stage: 'In Progress',
+status: 'In Progress',
+completed_date: null
+})
+.eq('id', selectedItem.id)
+}
+
 await loadItems()
 }
 }
@@ -151,6 +162,7 @@ title: editTitle,
       description: editDescription,
       due_date: editDueDate || null,
       priority: editPriority,
+updated_at: new Date().toISOString(),
     })
     .eq('id', selectedItem.id)
 
@@ -516,6 +528,7 @@ item.stage !== 'Complete'
 </div>
 <select
   value={item.stage}
+  onClick={(e) => e.stopPropagation()}
   onChange={(e) => updateStage(item.id, e.target.value)}
   style={{
     width: '100%',
@@ -697,7 +710,8 @@ marginLeft: '10px'
 }}
 >
 Cancel
-</button><ActivityHistory activity={activity} />
+</button>
+
 <Tasks
   tasks={tasks}
   newTask={newTask}
@@ -708,29 +722,18 @@ toggleTaskComplete={toggleTaskComplete}
 />
 <div>
 <div style={{ height: '10px' }}></div>
-  Created Date:
-</div>
-
-<div>
-  {selectedItem?.created_at
-    ? new Date(selectedItem.created_at).toLocaleDateString()
+ 🗓️ Created Date: {selectedItem?.created_at
+? new Date(selectedItem.created_at).toLocaleDateString()
     : ''}
 </div>
 <div style={{ height: '10px' }}></div>
 <div></div>
 <div>
-  Completed Date:
-</div>
-
+  ✅ Completed Date: {selectedItem?.completed_date
+? new Date(selectedItem.completed_date).toLocaleDateString()
+: 'Not Completed'}
 <div>
-  {selectedItem?.completed_date
-    ? new Date(selectedItem.completed_date).toLocaleDateString()
-    : ''}
-<div>
-🕒 Last Updated:
-</div>
-<div>
-{selectedItem?.updated_at
+🕒 Last Updated: {selectedItem?.updated_at
 ? new Date(selectedItem.updated_at).toLocaleDateString()
 : ''}
 </div>
@@ -738,11 +741,8 @@ toggleTaskComplete={toggleTaskComplete}
 </div><div></div>
 <div>
 <div style={{ height: '10px' }}></div>
-  Duration:
-</div>
-
-<div>
-  {selectedItem?.completed_date
+  ⏱️ Duration: {' '}
+{selectedItem?.completed_date
     ? Math.ceil(
         (
           new Date(selectedItem.completed_date).getTime() -
@@ -752,6 +752,15 @@ toggleTaskComplete={toggleTaskComplete}
     : ''}
   {' days'}
 </div>
+
+<div>
+  
+</div>
+<details>
+<summary>📜 Activity History</summary>
+<ActivityHistory activity={activity} />
+</details>
+
 <div style={{ height: '10px' }}></div>
 <button
   onClick={saveDetails}
