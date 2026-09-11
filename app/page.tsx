@@ -29,6 +29,7 @@ const [activity, setActivity] = useState<any[]>([])
 const [tasks, setTasks] = useState<any[]>([])
 const [allTasks, setAllTasks] = useState<any[]>([])
 const [newTask, setNewTask] = useState('')
+const [editLeadValue, setEditLeadValue] = useState('')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -598,6 +599,7 @@ fontWeight: 'bold'
 }}
 >
 👤 Owner
+
 </span>
       <input value={editOwner} onChange={(e) => setEditOwner(e.target.value)} style={{
 width: '100%',
@@ -605,9 +607,12 @@ padding: '8px',
 marginBottom: '10px',
 border: '1px solid #d1d5db',
 borderRadius: '6px'
+
 }} />
     </p>
-
+<p>
+  <strong>Lead Value:</strong> Coming Soon
+</p>
     <p>
       <strong>Stage:</strong>{' '}
       {selectedItem.stage}
@@ -666,7 +671,6 @@ resize: 'vertical'
 <p>
   <strong>Priority:</strong>
 </p>
-
 <select
   value={editPriority}
   onChange={(e) =>
