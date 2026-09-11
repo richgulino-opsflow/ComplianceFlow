@@ -554,16 +554,23 @@ item.stage !== 'Complete'
       Close
     </button>
 
-    <h2>{selectedItem.title}</h2>
 
     <p>
-<div>Title</div>
+<div
+style={{
+fontWeight: 'bold'
+}}
+>
+📝 Work Item Name
+</div>
 <input
 value={editTitle}
 onChange={(e) => setEditTitle(e.target.value)}
 style={{
 width: '100%',
-padding: '5px'
+padding: '5px',
+fontSize: '14px',
+marginBottom: '4px'
 }}
 />
 Owner:
