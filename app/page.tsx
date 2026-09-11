@@ -579,7 +579,13 @@ border: '1px solid #d1d5db',
 borderRadius: '6px'
 }}
 />
-Owner:
+<span
+style={{
+fontWeight: 'bold'
+}}
+>
+👤 Owner
+</span>
       <input value={editOwner} onChange={(e) => setEditOwner(e.target.value)} style={{
 width: '100%',
 padding: '8px',
@@ -604,9 +610,13 @@ borderRadius: '6px'
       {selectedItem.due_date || 'Not Set'}
     </p>
 
-    <p>
-  <strong>Description:</strong>
-</p>
+   <span
+style={{
+fontWeight: 'bold'
+}}
+>
+📝 Description
+</span>
 
 
 
