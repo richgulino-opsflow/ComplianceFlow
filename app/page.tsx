@@ -231,11 +231,15 @@ async function deleteItem() {
           }}
 
         />
-<button
-  onClick={addItem}
-  style={{
-    padding: '10px 20px',
-  }}
+<button onClick={addItem}
+style={{
+backgroundColor: '#2563eb',
+color: 'white',
+padding: '10px 20px',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer'
+}}
 >
   Create
 </button>
@@ -554,16 +558,16 @@ item.stage !== 'Complete'
       Close
     </button>
 
-
     <p>
-<div
+<span
 style={{
 fontWeight: 'bold'
 }}
 >
 📝 Work Item Name
-</div>
+</span>
 <input
+autoFocus
 value={editTitle}
 onChange={(e) => setEditTitle(e.target.value)}
 style={{
@@ -596,9 +600,7 @@ Owner:
   <strong>Description:</strong>
 </p>
 
-<button onClick={saveDetails}>
-Save Changes
-</button>
+
 
 <textarea
   value={editDescription}
@@ -647,7 +649,34 @@ Save Changes
   <option>High</option>
   <option>Critical</option>
 </select>
-<ActivityHistory activity={activity} />
+<button
+onClick={saveDetails}
+style={{
+backgroundColor: '#2563eb',
+color: 'white',
+padding: '10px 20px',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer',
+marginTop: '10px'
+}}
+>
+Save Changes
+</button>
+<button
+onClick={() => setSelectedItem(null)}
+style={{
+backgroundColor: '#6b7280',
+color: 'white',
+padding: '10px 20px',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer',
+marginLeft: '10px'
+}}
+>
+Cancel
+</button><ActivityHistory activity={activity} />
 <Tasks
   tasks={tasks}
   newTask={newTask}
@@ -676,6 +705,15 @@ toggleTaskComplete={toggleTaskComplete}
   {selectedItem?.completed_date
     ? new Date(selectedItem.completed_date).toLocaleDateString()
     : ''}
+<div>
+🕒 Last Updated:
+</div>
+<div>
+{selectedItem?.updated_at
+? new Date(selectedItem.updated_at).toLocaleDateString()
+: ''}
+</div>
+
 </div><div></div>
 <div>
 <div style={{ height: '10px' }}></div>
