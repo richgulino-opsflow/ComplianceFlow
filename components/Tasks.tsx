@@ -38,10 +38,13 @@ border: '1px solid gray'
 <button
 onClick={addTask}
 style={{
-border: '1px solid #ccc',
+
 padding: '10px 20px',
 marginLeft: '125px',
-background: '#2563eb',
+backgroundColor: '#2563eb',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer',
 color: 'white'
 }}
 

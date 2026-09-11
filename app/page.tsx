@@ -737,7 +737,11 @@ toggleTaskComplete={toggleTaskComplete}
   style={{
     width: '100%',
     padding: '10px',
-    background: '#2563eb',
+    backgroundColor: '#2563eb',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer',
+
     color: 'white'
   }}
 >
@@ -750,7 +754,10 @@ style={{
 width: '100%',
 padding: '10px',
 marginTop: '10px',
-background: 'red',
+backgroundColor: '#dc2626',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer',
 color: 'white'
 }}
 >
