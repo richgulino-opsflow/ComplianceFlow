@@ -651,7 +651,7 @@ style={{ marginLeft: '5px', width: '120px' }}
   </select>
 </p>
 <p style={{ display: 'flex', alignItems: 'center' }}>
-👤 Contact Name:
+<strong>👤 Contact:</strong>
 <input
 value={editContactName}
 onChange={(e) => setEditContactName(e.target.value)}
@@ -659,7 +659,7 @@ style={{ marginLeft: '5px', width: '150px' }}
 />
 </p>
 <p style={{ display: 'flex', alignItems: 'center' }}>
-📧 Email:
+<strong>📧 Email:</strong>
 <input
 value={editContactEmail}
 onChange={(e) => setEditContactEmail(e.target.value)}
@@ -668,7 +668,7 @@ style={{ marginLeft: '5px', width: '200px' }}
 </p>
 <p style={{ display: 'flex', alignItems: 'center' }}>
 
-📞 Phone:
+<strong>📞 Phone:</strong>
 <input
 value={editPhone}
 onChange={(e) => setEditPhone(e.target.value)}
@@ -676,7 +676,7 @@ style={{ marginLeft: '5px', width: '150px' }}
 />
 </p>
 <p style={{ display: 'flex', alignItems: 'center' }}>
-🏢 Company:
+<strong>🏢 Company:</strong>
 <input
 value={editCompanyName}
 onChange={(e) => setEditCompanyName(e.target.value)}
@@ -684,7 +684,7 @@ style={{ marginLeft: '5px', width: '150px' }}
 />
 </p>
 <p style={{ display: 'flex', alignItems: 'center' }}>
-🌐 Website:
+<strong>🌐 Website:</strong>
 <input
 value={editWebsite}
 onChange={(e) => setEditWebsite(e.target.value)}
@@ -692,7 +692,7 @@ style={{ marginLeft: '5px', width: '150px' }}
 />
 </p>
 <p style={{ display: 'flex', alignItems: 'center' }}>
-📅 Follow-Up Date:
+<strong>📅 Follow-Up Date:</strong>
 <input
   type="date"
   value={editFollowUpDate}
@@ -701,6 +701,14 @@ style={{ marginLeft: '5px', width: '150px' }}
   }
 />
 </p>
+<p>Follow-Up Status:
+{
+!editFollowUpDate
+? '⚪ Not Set'
+: new Date(editFollowUpDate) < new Date()
+? '🔴 Overdue'
+: '🟢 Scheduled'
+}</p>
     <p>
       <strong>Stage:</strong>{' '}
       {selectedItem.stage}
