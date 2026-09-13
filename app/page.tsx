@@ -36,6 +36,7 @@ const [editContactEmail, setEditContactEmail] = useState('')
 const [editPhone, setEditPhone] = useState('')
 const [editCompanyName, setEditCompanyName] = useState('')
 const [editWebsite, setEditWebsite] = useState('')
+const [editFollowUpDate, setEditFollowUpDate] = useState('')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -177,6 +178,7 @@ contact_email: editContactEmail,
 phone: editPhone,
 company_name: editCompanyName,
 website: editWebsite,
+follow_up_date: editFollowUpDate,
     })
     .eq('id', selectedItem.id)
 
@@ -383,6 +385,7 @@ setEditContactEmail(item.contact_email || '')
 setEditPhone(item.phone || '')
 setEditCompanyName(item.company_name || '')
 setEditWebsite(item.website || '')
+setEditFollowUpDate(item.follow_up_date || '')
 }}
 
   style={{
@@ -685,6 +688,16 @@ style={{ marginLeft: '5px', width: '150px' }}
 value={editWebsite}
 onChange={(e) => setEditWebsite(e.target.value)}
 style={{ marginLeft: '5px', width: '150px' }}
+/>
+</p>
+<p style={{ display: 'flex', alignItems: 'center' }}>
+📅 Follow-Up Date:
+<input
+  type="date"
+  value={editFollowUpDate}
+  onChange={(e) =>
+    setEditFollowUpDate(e.target.value)
+  }
 />
 </p>
     <p>
