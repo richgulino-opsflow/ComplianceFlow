@@ -164,6 +164,7 @@ title: editTitle,
       due_date: editDueDate || null,
       priority: editPriority,
 updated_at: new Date().toISOString(),
+lead_value: editLeadValue,
     })
     .eq('id', selectedItem.id)
 
@@ -363,6 +364,7 @@ setEditTitle(item.title || '')
   setEditDescription(item.description || '')
   setEditDueDate( item.due_date ? item.due_date.substring(0, 10) : '' )
   setEditPriority(item.priority || 'Medium')
+setEditLeadValue(item.lead_value || '')
 }}
 
   style={{
@@ -611,7 +613,9 @@ borderRadius: '6px'
 }} />
     </p>
 <p>
-  <strong>Lead Value:</strong> Coming Soon
+  <strong>💰 Lead Value: $</strong> <input value={editLeadValue} onChange={(e) => setEditLeadValue(e.target.value)}
+style={{ marginLeft: '5px', width: '120px' }}
+/> 
 </p>
     <p>
       <strong>Stage:</strong>{' '}
