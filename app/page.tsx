@@ -31,6 +31,7 @@ const [allTasks, setAllTasks] = useState<any[]>([])
 const [newTask, setNewTask] = useState('')
 const [editLeadValue, setEditLeadValue] = useState('')
 const [editLeadSource, setEditLeadSource] = useState('')
+const [editContactName, setEditContactName] = useState('')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -167,6 +168,7 @@ title: editTitle,
 updated_at: new Date().toISOString(),
 lead_value: editLeadValue,
 lead_source: editLeadSource,
+contact_name: editContactName,
     })
     .eq('id', selectedItem.id)
 
@@ -368,6 +370,7 @@ setEditTitle(item.title || '')
   setEditPriority(item.priority || 'Medium')
 setEditLeadValue(item.lead_value || '')
 setEditLeadSource(item.lead_source || '')
+setEditContactName(item.contact_name || '')
 }}
 
   style={{
@@ -639,8 +642,14 @@ style={{ marginLeft: '5px', width: '120px' }}
     <option value="Other">Other</option>
   </select>
 </p>
-
-
+<p style={{ display: 'flex', alignItems: 'center' }}>
+👤 Contact Name:
+<input
+value={editContactName}
+onChange={(e) => setEditContactName(e.target.value)}
+style={{ marginLeft: '5px', width: '150px' }}
+/>
+</p>
     <p>
       <strong>Stage:</strong>{' '}
       {selectedItem.stage}
