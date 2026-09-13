@@ -30,6 +30,7 @@ const [tasks, setTasks] = useState<any[]>([])
 const [allTasks, setAllTasks] = useState<any[]>([])
 const [newTask, setNewTask] = useState('')
 const [editLeadValue, setEditLeadValue] = useState('')
+const [editLeadSource, setEditLeadSource] = useState('')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -165,6 +166,7 @@ title: editTitle,
       priority: editPriority,
 updated_at: new Date().toISOString(),
 lead_value: editLeadValue,
+lead_source: editLeadSource,
     })
     .eq('id', selectedItem.id)
 
@@ -365,6 +367,7 @@ setEditTitle(item.title || '')
   setEditDueDate( item.due_date ? item.due_date.substring(0, 10) : '' )
   setEditPriority(item.priority || 'Medium')
 setEditLeadValue(item.lead_value || '')
+setEditLeadSource(item.lead_source || '')
 }}
 
   style={{
@@ -617,6 +620,27 @@ borderRadius: '6px'
 style={{ marginLeft: '5px', width: '120px' }}
 /> 
 </p>
+<p style={{ display: 'flex', alignItems: 'center' }}>
+  <strong>📢 Lead Source:</strong>{' '}
+  <select
+    value={editLeadSource}
+    onChange={(e) => setEditLeadSource(e.target.value)}
+    style={{ marginLeft: '5px', width: '160px' }}
+  >
+    <option value="">Select</option>
+    <option value="Referral">Referral</option>
+    <option value="Website">Website</option>
+    <option value="LinkedIn">LinkedIn</option>
+    <option value="Facebook">Facebook</option>
+    <option value="Instagram">Instagram</option>
+    <option value="YouTube">YouTube</option>
+    <option value="Cold Call">Cold Call</option>
+    <option value="Networking Event">Networking Event</option>
+    <option value="Other">Other</option>
+  </select>
+</p>
+
+
     <p>
       <strong>Stage:</strong>{' '}
       {selectedItem.stage}
