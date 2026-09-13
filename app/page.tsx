@@ -32,6 +32,10 @@ const [newTask, setNewTask] = useState('')
 const [editLeadValue, setEditLeadValue] = useState('')
 const [editLeadSource, setEditLeadSource] = useState('')
 const [editContactName, setEditContactName] = useState('')
+const [editContactEmail, setEditContactEmail] = useState('')
+const [editPhone, setEditPhone] = useState('')
+const [editCompanyName, setEditCompanyName] = useState('')
+const [editWebsite, setEditWebsite] = useState('')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -169,6 +173,10 @@ updated_at: new Date().toISOString(),
 lead_value: editLeadValue,
 lead_source: editLeadSource,
 contact_name: editContactName,
+contact_email: editContactEmail,
+phone: editPhone,
+company_name: editCompanyName,
+website: editWebsite,
     })
     .eq('id', selectedItem.id)
 
@@ -371,6 +379,10 @@ setEditTitle(item.title || '')
 setEditLeadValue(item.lead_value || '')
 setEditLeadSource(item.lead_source || '')
 setEditContactName(item.contact_name || '')
+setEditContactEmail(item.contact_email || '')
+setEditPhone(item.phone || '')
+setEditCompanyName(item.company_name || '')
+setEditWebsite(item.website || '')
 }}
 
   style={{
@@ -571,14 +583,7 @@ item.stage !== 'Complete'
       boxShadow: '-2px 0 10px rgba(0,0,0,0.1)',
     }}
   >
-    <button
-      onClick={() => setSelectedItem(null)}
-      style={{
-        marginBottom: '20px',
-      }}
-    >
-      Close
-    </button>
+   
 
     <p>
 <span
@@ -647,6 +652,38 @@ style={{ marginLeft: '5px', width: '120px' }}
 <input
 value={editContactName}
 onChange={(e) => setEditContactName(e.target.value)}
+style={{ marginLeft: '5px', width: '150px' }}
+/>
+</p>
+<p style={{ display: 'flex', alignItems: 'center' }}>
+📧 Email:
+<input
+value={editContactEmail}
+onChange={(e) => setEditContactEmail(e.target.value)}
+style={{ marginLeft: '5px', width: '200px' }}
+/>
+</p>
+<p style={{ display: 'flex', alignItems: 'center' }}>
+📞 Phone:
+<input
+value={editPhone}
+onChange={(e) => setEditPhone(e.target.value)}
+style={{ marginLeft: '5px', width: '150px' }}
+/>
+</p>
+<p style={{ display: 'flex', alignItems: 'center' }}>
+🏢 Company:
+<input
+value={editCompanyName}
+onChange={(e) => setEditCompanyName(e.target.value)}
+style={{ marginLeft: '5px', width: '150px' }}
+/>
+</p>
+<p style={{ display: 'flex', alignItems: 'center' }}>
+🌐 Website:
+<input
+value={editWebsite}
+onChange={(e) => setEditWebsite(e.target.value)}
 style={{ marginLeft: '5px', width: '150px' }}
 />
 </p>
@@ -724,34 +761,7 @@ resize: 'vertical'
   <option>High</option>
   <option>Critical</option>
 </select>
-<button
-onClick={saveDetails}
-style={{
-backgroundColor: '#2563eb',
-color: 'white',
-padding: '10px 20px',
-border: 'none',
-borderRadius: '6px',
-cursor: 'pointer',
-marginTop: '10px'
-}}
->
-Save Changes
-</button>
-<button
-onClick={() => setSelectedItem(null)}
-style={{
-backgroundColor: '#6b7280',
-color: 'white',
-padding: '10px 20px',
-border: 'none',
-borderRadius: '6px',
-cursor: 'pointer',
-marginLeft: '10px'
-}}
->
-Cancel
-</button>
+
 
 <Tasks
   tasks={tasks}
@@ -835,7 +845,22 @@ color: 'white'
 Delete Work Item
 </button>
 
-  
+ <button
+onClick={() => setSelectedItem(null)}
+style={{
+width: '100%',
+padding: '10px',
+marginTop: '10px',
+backgroundColor: '#6b7280',
+color: 'white',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer',
+
+}}
+>
+Close
+</button> 
 </div>
 )}
     </div>

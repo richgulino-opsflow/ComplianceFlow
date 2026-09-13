@@ -30,28 +30,27 @@ New Task:<input
 value={newTask}
 onChange={(e) => setNewTask(e.target.value)}
 style={{
-width: '200px',
+width: '190px',
 border: '1px solid gray'
 }}
 />
-
 <button
 onClick={addTask}
 style={{
-
-padding: '10px 20px',
-marginLeft: '125px',
-backgroundColor: '#2563eb',
+marginLeft: '5px',
+backgroundColor: 'transparent',
 border: 'none',
 borderRadius: '6px',
 cursor: 'pointer',
-color: 'white'
+color: 'white',
+padding: '0'
 }}
-
 >
-Add Task
+✅
 </button>
+
 </div>
+<div style={{ height: '10px' }}></div>
 <div
 style={{
 width: '100%',
@@ -60,6 +59,7 @@ backgroundColor: '#ddd'
 
 }}
 >
+
 <div
 style={{
 width: `${Math.round(
