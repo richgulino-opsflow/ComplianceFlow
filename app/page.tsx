@@ -37,6 +37,7 @@ const [editPhone, setEditPhone] = useState('')
 const [editCompanyName, setEditCompanyName] = useState('')
 const [editWebsite, setEditWebsite] = useState('')
 const [editFollowUpDate, setEditFollowUpDate] = useState('')
+const [editWinProbability, setEditWinProbability] = useState('')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -178,6 +179,7 @@ contact_email: editContactEmail,
 phone: editPhone,
 company_name: editCompanyName,
 website: editWebsite,
+win_probability: editWinProbability || null,
 
     })
     .eq('id', selectedItem.id)
@@ -313,6 +315,29 @@ Completion Rate:
 })}
 </div>
 <div>
+🎯 Weighted Pipeline Value:
+{
+items.reduce(
+(sum: number, item: any) =>
+sum +
+(
+(Number(item.lead_value || 0) *
+Number(item.win_probability || 0)) / 100
+),
+0
+).toLocaleString('en-US', {
+style: 'currency',
+currency: 'USD',
+minimumFractionDigits: 0,
+maximumFractionDigits: 0
+})
+}
+</div>
+<div>
+💼 Active Leads:
+{items.filter((i: any) => i.stage !== 'Complete').length}
+</div>
+<div>
 🔴 Overdue Follow-Ups: {items.filter((i: any) =>
 i.follow_up_date &&
 new Date(i.follow_up_date) < new Date()
@@ -418,6 +443,7 @@ setEditFollowUpDate(
     ? item.follow_up_date.substring(0, 10)
     : ''
 )
+setEditWinProbability(item.win_probability || '')
 }}
 
   style={{
@@ -662,6 +688,21 @@ borderRadius: '6px'
   <strong>💰 Lead Value: $</strong> <input value={editLeadValue} onChange={(e) => setEditLeadValue(e.target.value)}
 style={{ marginLeft: '5px', width: '120px' }}
 /> 
+</p>
+
+<p style={{ display: 'flex', alignItems: 'center' }}>
+<strong>🎯 Win Probability:</strong>
+<select
+value={editWinProbability}
+onChange={(e) => setEditWinProbability(e.target.value)}
+>
+<option value="">Select</option>
+<option value="10">10%</option>
+<option value="25">25%</option>
+<option value="50">50%</option>
+<option value="75">75%</option>
+<option value="90">90%</option>
+</select>
 </p>
 <p style={{ display: 'flex', alignItems: 'center' }}>
   <strong>📢 Lead Source:</strong>{' '}
