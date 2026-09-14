@@ -164,28 +164,29 @@ if (!confirm('Save changes to this work item?')) return
 
   const { error } = await supabase
     .from('work_items')
-    .update({
+    .update({follow_up_date: editFollowUpDate || null,
 title: editTitle,
       owner: editOwner,
       description: editDescription,
       due_date: editDueDate || null,
       priority: editPriority,
 updated_at: new Date().toISOString(),
-lead_value: editLeadValue,
+lead_value: editLeadValue || null,
 lead_source: editLeadSource,
 contact_name: editContactName,
 contact_email: editContactEmail,
 phone: editPhone,
 company_name: editCompanyName,
 website: editWebsite,
-follow_up_date: editFollowUpDate,
+
     })
     .eq('id', selectedItem.id)
 
-  if (error) {
-    console.log(error)
-    return
-  }
+ if (error) {
+  alert(error.message)
+  console.log(error)
+  return
+}
 await supabase
 .from('activity_log')
 .insert([
@@ -301,6 +302,18 @@ Completion Rate:
 {Math.round(
 (items.filter((i: any) => i.stage === 'Complete').length / items.length) * 100
 )}%
+<div>
+🔴 Overdue Follow-Ups: {items.filter((i: any) =>
+i.follow_up_date &&
+new Date(i.follow_up_date) < new Date()
+).length}
+</div>
+<div>
+🟢 Scheduled Follow-Ups: {items.filter((i: any) =>
+i.follow_up_date &&
+new Date(i.follow_up_date) >= new Date()
+).length}
+</div>
 </div>  
 <div
 style={{
@@ -385,7 +398,11 @@ setEditContactEmail(item.contact_email || '')
 setEditPhone(item.phone || '')
 setEditCompanyName(item.company_name || '')
 setEditWebsite(item.website || '')
-setEditFollowUpDate(item.follow_up_date || '')
+setEditFollowUpDate(
+  item.follow_up_date
+    ? item.follow_up_date.substring(0, 10)
+    : ''
+)
 }}
 
   style={{
@@ -701,7 +718,7 @@ style={{ marginLeft: '5px', width: '150px' }}
   }
 />
 </p>
-<p>Follow-Up Status:
+<p><strong>Follow-Up Status:</strong>
 {
 !editFollowUpDate
 ? '⚪ Not Set'
