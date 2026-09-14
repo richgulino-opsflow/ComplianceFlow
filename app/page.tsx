@@ -303,6 +303,16 @@ Completion Rate:
 (items.filter((i: any) => i.stage === 'Complete').length / items.length) * 100
 )}%
 <div>
+💰 Total Pipeline Value: {items.reduce(
+  (sum: number, item: any) =>
+    sum + (Number(item.lead_value) || 0),
+  0
+).toLocaleString('en-US', {
+  style: 'currency',
+  currency: 'USD'
+})}
+</div>
+<div>
 🔴 Overdue Follow-Ups: {items.filter((i: any) =>
 i.follow_up_date &&
 new Date(i.follow_up_date) < new Date()
@@ -312,6 +322,11 @@ new Date(i.follow_up_date) < new Date()
 🟢 Scheduled Follow-Ups: {items.filter((i: any) =>
 i.follow_up_date &&
 new Date(i.follow_up_date) >= new Date()
+).length}
+</div>
+<div>
+📅 Due Today: {items.filter((i: any) =>
+i.due_date === new Date().toISOString().substring(0, 10)
 ).length}
 </div>
 </div>  
