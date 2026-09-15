@@ -717,6 +717,7 @@ onChange={(e) => setEditWinProbability(e.target.value)}
 <option value="50">50%</option>
 <option value="75">75%</option>
 <option value="90">90%</option>
+<option value="WON">WON</option>
 </select>
 </p>
 <p style={{ display: 'flex', alignItems: 'center' }}>
@@ -954,7 +955,23 @@ color: 'white'
 >
 Delete Work Item
 </button>
-
+{editWinProbability === 'WON' && (
+<button
+onClick={() => alert('Work Order Created')}
+style={{
+width: '100%',
+padding: '10px',
+marginTop: '10px',
+backgroundColor: '#16a34a',
+border: 'none',
+borderRadius: '6px',
+cursor: 'pointer',
+color: 'white'
+}}
+>
+Create Work Order
+</button>
+)}
  <button
 onClick={() => setSelectedItem(null)}
 style={{
