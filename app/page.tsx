@@ -209,26 +209,20 @@ async function deleteItem() {
   const confirmed = window.confirm(
     'Are you sure you want to delete this work item?'
   )
-
   if (!confirmed) return
-
   const { error } = await supabase
     .from('work_items')
     .delete()
     .eq('id', selectedItem.id)
-
   if (error) {
     console.log(error)
     return
   }
-
   setSelectedItem(null)
-
   await loadItems()
 }
   async function addItem() {
     if (!title.trim()) return
-
     await supabase
       .from('work_items')
       .insert([
@@ -243,24 +237,20 @@ async function deleteItem() {
     setTitle('')
     loadItems()
   }
-
   return (
     <div style={{ padding: 20 }}>
       <h1>OpsFlow Operations Board</h1>
-
       <div style={{ marginBottom: 20 }}>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="New Work Item"
-
           style={{
             padding: 10,
             width: 300,
             border: '1px solid #ccc',
             marginRight: 10,
           }}
-
         />
 <button onClick={addItem}
 style={{
@@ -281,21 +271,29 @@ cursor: 'pointer'
 }}>
 
 <h3>Dashboard</h3>
-<div style={{ height: '10px' }}></div>
-<div>
-
-Open Items: {items.length}
-</div>
+<div style={{
+display: 'flex',
+gap: '80px',
+alignItems: 'flex-start'
+}}>
+<div style={{
+display: 'flex',
+flexDirection: 'column',
+gap: '4px'
+}}>
+<div>Open Items: {items.length}</div>
 <div>
 Completed Items: {items.filter((i: any) => i.stage === 'Complete').length}
 </div>
 <div>
-Planning: {items.filter((i: any) => i.stage === 'Planning').length}
+Planning:
+{items.filter((i: any) => i.stage === 'Planning').length}
 </div>
 <div>
-Intake: {items.filter((i: any) => i.stage === 'Intake').length}
-<div>
+Intake:
+{items.filter((i: any) => i.stage === 'Intake').length}
 </div>
+<div>
 In Progress:
 {items.filter((i: any) => i.stage === 'In Progress').length}
 </div>
@@ -304,6 +302,62 @@ Completion Rate:
 {Math.round(
 (items.filter((i: any) => i.stage === 'Complete').length / items.length) * 100
 )}%
+</div>
+<div
+style={{
+backgroundColor: '#fef3c7',
+padding: '10px',
+borderRadius: '8px',
+maxWidth: '200px',
+marginBottom: '10px',
+fontWeight: 'bold',
+marginTop: '5px'
+}}>
+⚠️ Overdue Items: {
+items.filter(
+(i: any) =>
+i.due_date &&
+new Date(i.due_date) < new Date() &&
+i.stage !== 'Complete'
+).length
+}
+</div>
+<div
+style={{
+backgroundColor: '#fee2e2',
+padding: '10px',
+borderRadius: '8px',
+maxWidth: '225px',
+marginBottom: '10px',
+fontWeight: 'bold',
+marginTop: '5px'
+}}
+>
+🔴 High Priority Items: {
+items.filter(
+(i: any) => i.priority === 'High'
+).length
+}
+</div>
+
+</div>
+<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+ <div> 🏆 Top Opportunity:
+{
+items
+.sort((a: any, b: any) =>
+(Number(b.lead_value) || 0) -
+(Number(a.lead_value) || 0)
+)[0]?.title
+}(${(Number(
+items .sort((a: any, b: any) =>
+(Number(b.lead_value) || 0) -
+(Number(a.lead_value) || 0)
+)[0]?.lead_value || 0
+)).toLocaleString()
+}
+)
+</div>
 <div>
 💰 Total Pipeline Value: {items.reduce(
   (sum: number, item: any) =>
@@ -343,7 +397,7 @@ i.follow_up_date &&
 new Date(i.follow_up_date) < new Date()
 ).length}
 </div>
-<div>
+
 🟢 Scheduled Follow-Ups: {items.filter((i: any) =>
 i.follow_up_date &&
 new Date(i.follow_up_date) >= new Date()
@@ -355,46 +409,6 @@ i.due_date === new Date().toISOString().substring(0, 10)
 ).length}
 </div>
 </div>  
-<div
-style={{
-backgroundColor: '#fef3c7',
-padding: '10px',
-borderRadius: '8px',
-maxWidth: '200px',
-marginBottom: '10px',
-fontWeight: 'bold',
-marginTop: '5px'
-}}
->
-
-⚠️ Overdue Items: {
-items.filter(
-(i: any) =>
-i.due_date &&
-new Date(i.due_date) < new Date() &&
-i.stage !== 'Complete'
-).length
-}
-</div>
-<div
-style={{
-backgroundColor: '#fee2e2',
-padding: '10px',
-borderRadius: '8px',
-maxWidth: '225px',
-marginBottom: '10px',
-fontWeight: 'bold',
-marginTop: '5px'
-}}
->
-
-🔴 High Priority Items: {
-
-items.filter(
-(i: any) => i.priority === 'High'
-).length
-}
-</div>
   </div>   
       </div>
 
