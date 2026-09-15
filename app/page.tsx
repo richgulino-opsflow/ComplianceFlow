@@ -239,7 +239,8 @@ async function deleteItem() {
   }
   return (
     <div style={{ padding: 20 }}>
-      <h1>OpsFlow Operations Board</h1>
+<img src="/logo.png" alt="Company Logo" width="120" />
+<h1>OpsFlow Operations Board</h1>
       <div style={{ marginBottom: 20 }}>
         <input
           value={title}
