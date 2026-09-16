@@ -38,6 +38,7 @@ const [editCompanyName, setEditCompanyName] = useState('')
 const [editWebsite, setEditWebsite] = useState('')
 const [editFollowUpDate, setEditFollowUpDate] = useState('')
 const [editWinProbability, setEditWinProbability] = useState('')
+const [selectedModule, setSelectedModule] = useState('Dashboard')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -239,7 +240,28 @@ async function deleteItem() {
   }
   return (
     <div style={{ padding: 20 }}>
+<div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '10px' }}>
+<button onClick={() => window.location.reload()} style={{ border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}>
 <img src="/logo.png" alt="Company Logo" width="120" />
+</button>
+<div>
+ <strong>OpsFlow Tools:</strong>{' '}
+  <select
+    value={selectedModule}
+    onChange={(e) => setSelectedModule(e.target.value)}
+    style={{ marginLeft: '5px', width: '160px' }}
+  >
+    <option value="">Select</option>
+    <option value="Dashboard">Dashboard</option>
+    <option value="Work Orders">Work Orders</option>
+    <option value="Accounting">Accounting</option>
+    <option value="Reports">Reports</option>
+    <option value="Settings">Settings</option>
+</select>
+<div>{selectedModule}</div>
+{selectedModule === 'Work Orders' && <div>Work Orders Coming Soon</div>}
+</div>
+</div>
 <h1>OpsFlow Operations Board</h1>
       <div style={{ marginBottom: 20 }}>
         <input
