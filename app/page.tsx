@@ -258,8 +258,11 @@ async function deleteItem() {
     <option value="Reports">Reports</option>
     <option value="Settings">Settings</option>
 </select>
-<div>{selectedModule}</div>
-{selectedModule === 'Work Orders' && <div>Work Orders Coming Soon</div>}
+<h3>{selectedModule}</h3>
+{selectedModule === 'Work Orders' && <div>Work Orders Module</div>}
+{selectedModule === 'Accounting' && <div>Accounting Module</div>}
+{selectedModule === 'Reports' && <div>Reports Module</div>}
+{selectedModule === 'Settings' && <div>Settings Module</div>}
 </div>
 </div>
 <h1>OpsFlow Operations Board</h1>
