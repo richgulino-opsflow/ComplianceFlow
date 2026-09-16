@@ -259,13 +259,43 @@ async function deleteItem() {
     <option value="Settings">Settings</option>
 </select>
 <h3>{selectedModule}</h3>
-{selectedModule === 'Work Orders' && <div>Work Orders Module</div>}
+{selectedModule === 'Work Orders' && (
+<div>
+<h2>Work Orders</h2>
+<button>Create New Work Order</button>
+<table border="1">
+<thead>
+<tr><th>WO #</th><th>Customer</th>
+<th>Description</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WO-1001</td>
+<td>Sample Customer</td>
+<td>Test Work Order</td>
+<td>Open</td>
+</tr>
+<tr>
+<td>WO-1002</td>
+<td>ABC Manufacturing</td>
+<td>Loading Dock Repair</td>
+<td>Scheduled</td>
+</tr>
+</tbody>
+</table>
+</div>
+)}
 {selectedModule === 'Accounting' && <div>Accounting Module</div>}
 {selectedModule === 'Reports' && <div>Reports Module</div>}
 {selectedModule === 'Settings' && <div>Settings Module</div>}
 </div>
 </div>
+{selectedModule === 'Dashboard' && (
 <h1>OpsFlow Operations Board</h1>
+)}
+
       <div style={{ marginBottom: 20 }}>
         <input
           value={title}
