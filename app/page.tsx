@@ -39,6 +39,9 @@ const [editWebsite, setEditWebsite] = useState('')
 const [editFollowUpDate, setEditFollowUpDate] = useState('')
 const [editWinProbability, setEditWinProbability] = useState('')
 const [selectedModule, setSelectedModule] = useState('Dashboard')
+const [showWorkOrderForm, setShowWorkOrderForm] = useState(false)
+const [woCustomer, setWoCustomer] = useState('')
+const [woDescription, setWoDescription] = useState('')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -262,7 +265,17 @@ async function deleteItem() {
 {selectedModule === 'Work Orders' && (
 <div>
 <h2>Work Orders</h2>
-<button>Create New Work Order</button>
+<button onClick={() => setShowWorkOrderForm(true)}>Add Work Order</button>
+{showWorkOrderForm && (
+<div>
+<label>Customer Name: </label>
+<input value={woCustomer} onChange={(e) => setWoCustomer(e.target.value)} style={{ border: '1px solid black', width: '200px' }} />
+<br />
+<label>Description: </label>
+<input style={{ border: '1px solid black', width: '200px' }} />
+</div>
+)}
+
 <table border="1">
 <thead>
 <tr><th>WO #</th><th>Customer</th>
