@@ -42,6 +42,8 @@ const [selectedModule, setSelectedModule] = useState('Dashboard')
 const [showWorkOrderForm, setShowWorkOrderForm] = useState(false)
 const [woCustomer, setWoCustomer] = useState('')
 const [woDescription, setWoDescription] = useState('')
+const [woStatus, setWoStatus] = useState('Open')
+const [workOrders, setWorkOrders] = useState<any[]>([])
   useEffect(() => {
 loadAllTasks()    
 loadItems()
@@ -263,7 +265,7 @@ async function deleteItem() {
 </select>
 
 {selectedModule === 'Work Orders' && (
-<div style={{ backgroundColor: '#f9fafb', border: '1px solid #d1d5db', borderRadius: '8px', padding: '15px', marginTop: '15px' }}>
+<div style={{ backgroundColor: '#f9fafb', border: '1px solid #d1d5db', borderRadius: '8px', padding: '15px', marginTop: '15px', minHeight: '300px', marginBottom: '20px' }}>
 <hr />
 <h2>Work Orders</h2>
 <button onClick={() => setShowWorkOrderForm(true)}>Add Work Order</button>
@@ -274,6 +276,18 @@ async function deleteItem() {
 <br />
 <label>Description: </label>
 <input style={{ border: '1px solid black', width: '200px' }} />
+<br />
+<label>Status: </label>
+<select value={woStatus} onChange={(e) => setWoStatus(e.target.value)}>
+<option>Open</option>
+<option>Scheduled</option>
+<option>In Progress</option>
+<option>Complete</option>
+</select>
+<br />
+<button onClick={() => setWorkOrders([...workOrders, {woNumber: 'WO-' + (workOrders.length + 1001),customer: woCustomer,description: woDescription,status: woStatus}])}>Save Work Order</button>
+
+
 </div>
 )}
 
