@@ -410,6 +410,7 @@ items.filter(
 </div>
 
 </div>
+
 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
  <div> 🏆 Top Opportunity:
 {
