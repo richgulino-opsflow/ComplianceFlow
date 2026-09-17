@@ -261,9 +261,10 @@ async function deleteItem() {
     <option value="Reports">Reports</option>
     <option value="Settings">Settings</option>
 </select>
-<h3>{selectedModule}</h3>
+
 {selectedModule === 'Work Orders' && (
-<div>
+<div style={{ backgroundColor: '#f9fafb', border: '1px solid #d1d5db', borderRadius: '8px', padding: '15px', marginTop: '15px' }}>
+<hr />
 <h2>Work Orders</h2>
 <button onClick={() => setShowWorkOrderForm(true)}>Add Work Order</button>
 {showWorkOrderForm && (
