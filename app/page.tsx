@@ -243,6 +243,18 @@ async function deleteItem() {
     setTitle('')
     loadItems()
   }
+function saveWorkOrder() {
+setWorkOrders([...workOrders, {
+woNumber: 'WO-' + (workOrders.length + 1001),
+customer: woCustomer,
+description: woDescription,
+status: woStatus
+}])
+setWoCustomer('')
+setWoDescription('')
+setWoStatus('Open')
+setShowWorkOrderForm(false)
+}
   return (
     <div style={{ padding: 20 }}>
 <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '10px' }}>
@@ -275,7 +287,8 @@ async function deleteItem() {
 <input value={woCustomer} onChange={(e) => setWoCustomer(e.target.value)} style={{ border: '1px solid black', width: '200px' }} />
 <br />
 <label>Description: </label>
-<input style={{ border: '1px solid black', width: '200px' }} />
+<input value={woDescription} onChange={(e) => setWoDescription(e.target.value)}
+/>
 <br />
 <label>Status: </label>
 <select value={woStatus} onChange={(e) => setWoStatus(e.target.value)}>
@@ -285,8 +298,8 @@ async function deleteItem() {
 <option>Complete</option>
 </select>
 <br />
-<button onClick={() => setWorkOrders([...workOrders, {woNumber: 'WO-' + (workOrders.length + 1001),customer: woCustomer,description: woDescription,status: woStatus}])}>Save Work Order</button>
-
+<button onClick={saveWorkOrder}
+style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>Save Work Order</button>
 
 </div>
 )}
@@ -299,19 +312,16 @@ async function deleteItem() {
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>WO-1001</td>
-<td>Sample Customer</td>
-<td>Test Work Order</td>
-<td>Open</td>
+{workOrders.map((wo, index) => (
+<tr key={index}>
+<td>{wo.woNumber}</td>
+<td>{wo.customer}</td>
+<td>{wo.description}</td>
+<td>{wo.status}</td>
 </tr>
-<tr>
-<td>WO-1002</td>
-<td>ABC Manufacturing</td>
-<td>Loading Dock Repair</td>
-<td>Scheduled</td>
-</tr>
+))}
 </tbody>
+
 </table>
 </div>
 )}
