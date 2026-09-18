@@ -248,7 +248,8 @@ setWorkOrders([...workOrders, {
 woNumber: 'WO-' + (workOrders.length + 1001),
 customer: woCustomer,
 description: woDescription,
-status: woStatus
+status: woStatus,
+created: new Date().toLocaleDateString()
 }])
 setWoCustomer('')
 setWoDescription('')
@@ -309,6 +310,8 @@ style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', borde
 <tr><th>WO #</th><th>Customer</th>
 <th>Description</th>
 <th>Status</th>
+<th>Created</th>
+<th>Actions</th>
 </tr>
 </thead>
 <tbody>
@@ -318,6 +321,8 @@ style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', borde
 <td>{wo.customer}</td>
 <td>{wo.description}</td>
 <td>{wo.status}</td>
+<td>{wo.created}</td>
+<td><button onClick={() => setWorkOrders(workOrders.filter((_, i) => i !== index))} style={{ backgroundColor: '#dc2626', color: 'white' }}>Delete</button></td>
 </tr>
 ))}
 </tbody>
