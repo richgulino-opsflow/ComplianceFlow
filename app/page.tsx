@@ -44,9 +44,13 @@ const [woCustomer, setWoCustomer] = useState('')
 const [woDescription, setWoDescription] = useState('')
 const [woStatus, setWoStatus] = useState('Open')
 const [workOrders, setWorkOrders] = useState<any[]>([])
+const [woAssignedTo, setWoAssignedTo] = useState('')
+const [woDueDate, setWoDueDate] = useState('')
+const [woPercentComplete, setWoPercentComplete] = useState('0')
   useEffect(() => {
 loadAllTasks()    
 loadItems()
+loadWorkOrders()
   }, [])
 async function loadAllTasks() {
 const { data } = await supabase
@@ -243,20 +247,35 @@ async function deleteItem() {
     setTitle('')
     loadItems()
   }
-function saveWorkOrder() {
-setWorkOrders([...workOrders, {
-woNumber: 'WO-' + (workOrders.length + 1001),
+async function saveWorkOrder() {
+const woNumber = 'WO-' + (workOrders.length + 1001)
+console.log('Percent Complete:', woPercentComplete)
+const { error } = await supabase.from('work_orders').insert([{
+wo_number: woNumber,
 customer: woCustomer,
 description: woDescription,
 status: woStatus,
-created: new Date().toLocaleDateString()
+assigned_to: woAssignedTo,
+due_date: woDueDate,
+percent_complete: woPercentComplete,
+created_date: new Date().toISOString().substring(0, 10)
 }])
+if (error) {
+alert(error.message)
+return
+}
+await loadWorkOrders()
 setWoCustomer('')
 setWoDescription('')
 setWoStatus('Open')
 setShowWorkOrderForm(false)
 }
+async function loadWorkOrders() {
+const { data } = await supabase.from('work_orders').select('*')
+setWorkOrders(data || [])
+}
   return (
+
     <div style={{ padding: 20 }}>
 <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '10px' }}>
 <button onClick={() => window.location.reload()} style={{ border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}>
@@ -291,6 +310,20 @@ setShowWorkOrderForm(false)
 <input value={woDescription} onChange={(e) => setWoDescription(e.target.value)}
 />
 <br />
+<label>Assigned To: </label>
+<input value={woAssignedTo} onChange={(e) => setWoAssignedTo(e.target.value)} />
+<br />
+<label>Due Date: </label>
+<input type="date" value={woDueDate} onChange={(e) => setWoDueDate(e.target.value)} />
+<br />
+<label>% Complete: </label>
+<select value={woPercentComplete} onChange={(e) => setWoPercentComplete(e.target.value)}>
+<option>0</option>
+<option>25</option>
+<option>50</option>
+<option>75</option>
+<option>100</option>
+</select>
 <label>Status: </label>
 <select value={woStatus} onChange={(e) => setWoStatus(e.target.value)}>
 <option>Open</option>
@@ -299,29 +332,37 @@ setShowWorkOrderForm(false)
 <option>Complete</option>
 </select>
 <br />
+<div>Current % Complete: {woPercentComplete}</div>
 <button onClick={saveWorkOrder}
 style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>Save Work Order</button>
 
 </div>
 )}
 
-<table border="1">
+<table border="1" style={{ width: '100%', borderCollapse: 'collapse' }}>
 <thead>
-<tr><th>WO #</th><th>Customer</th>
+<tr><th>WO #</th>
+<th>Customer</th>
 <th>Description</th>
 <th>Status</th>
 <th>Created</th>
+<th>Assigned To</th>
+<th>Due Date</th>
+<th>% Complete</th>
 <th>Actions</th>
 </tr>
 </thead>
 <tbody>
 {workOrders.map((wo, index) => (
 <tr key={index}>
-<td>{wo.woNumber}</td>
+<td>{wo.wo_number}</td>
 <td>{wo.customer}</td>
 <td>{wo.description}</td>
 <td>{wo.status}</td>
-<td>{wo.created}</td>
+<td>{wo.created_date?.substring(0, 10)}</td>
+<td>{wo.assigned_to}</td>
+<td>{wo.due_date?.substring(0,10)}</td>
+<td>{wo.percent_complete}%</td>
 <td><button onClick={() => setWorkOrders(workOrders.filter((_, i) => i !== index))} style={{ backgroundColor: '#dc2626', color: 'white' }}>Delete</button></td>
 </tr>
 ))}
