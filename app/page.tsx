@@ -368,8 +368,8 @@ style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', borde
 <td>{wo.assigned_to}</td>
 <td>{wo.due_date?.substring(0,10)}</td>
 <td>{wo.percent_complete}%</td>
-<td><button onClick={() => deleteWorkOrder(wo.id)}
- style={{ backgroundColor: '#dc2626', color: 'white' }}>Delete</button></td>
+<td style={{ padding: '2px' }}><button onClick={() => deleteWorkOrder(wo.id)}
+ style={{ backgroundColor: '#dc2626', color: 'white', padding: '4px 12px',border: 'none', borderRadius: '6px', cursor: 'pointer'  }}>Delete</button></td>
 </tr>
 ))}
 </tbody>
