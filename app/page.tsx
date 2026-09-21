@@ -274,6 +274,11 @@ async function loadWorkOrders() {
 const { data } = await supabase.from('work_orders').select('*')
 setWorkOrders(data || [])
 }
+async function deleteWorkOrder(id) {
+await supabase.from('work_orders').delete()
+.eq('id', id)
+await loadWorkOrders()
+}
   return (
 
     <div style={{ padding: 20 }}>
@@ -363,7 +368,8 @@ style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', borde
 <td>{wo.assigned_to}</td>
 <td>{wo.due_date?.substring(0,10)}</td>
 <td>{wo.percent_complete}%</td>
-<td><button onClick={() => setWorkOrders(workOrders.filter((_, i) => i !== index))} style={{ backgroundColor: '#dc2626', color: 'white' }}>Delete</button></td>
+<td><button onClick={() => deleteWorkOrder(wo.id)}
+ style={{ backgroundColor: '#dc2626', color: 'white' }}>Delete</button></td>
 </tr>
 ))}
 </tbody>
