@@ -287,7 +287,7 @@ await loadWorkOrders()
 <img src="/logo.png" alt="Company Logo" width="120" />
 </button>
 <div>
- <strong>OpsFlow Tools:</strong>{' '}
+ <strong>ComplianceFlow Tools:</strong>{' '}
   <select
     value={selectedModule}
     onChange={(e) => setSelectedModule(e.target.value)}
@@ -383,7 +383,7 @@ style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', borde
 </div>
 </div>
 {selectedModule === 'Dashboard' && (
-<h1>OpsFlow Operations Board</h1>
+<h1>ComplianceFlow Operations Board</h1>
 )}
 
       <div style={{ marginBottom: 20 }}>
