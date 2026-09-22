@@ -274,7 +274,7 @@ async function loadWorkOrders() {
 const { data } = await supabase.from('work_orders').select('*')
 setWorkOrders(data || [])
 }
-async function deleteWorkOrder(id) {
+async function deleteWorkOrder(id: number) {
 await supabase.from('work_orders').delete()
 .eq('id', id)
 await loadWorkOrders()
@@ -287,7 +287,7 @@ await loadWorkOrders()
 <img src="/logo.png" alt="Company Logo" width="120" />
 </button>
 <div>
- <strong>ComplianceFlow Tools:</strong>{' '}
+ <strong>OpsFlow Tools:</strong>{' '}
   <select
     value={selectedModule}
     onChange={(e) => setSelectedModule(e.target.value)}
@@ -344,7 +344,7 @@ style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', borde
 </div>
 )}
 
-<table border="1" style={{ width: '100%', borderCollapse: 'collapse' }}>
+<table border={1} style={{ width: '100%', borderCollapse: 'collapse' }}>
 <thead>
 <tr><th>WO #</th>
 <th>Customer</th>
@@ -383,7 +383,7 @@ style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', borde
 </div>
 </div>
 {selectedModule === 'Dashboard' && (
-<h1>ComplianceFlow Operations Board</h1>
+<h1>OpsFlow Operations Board</h1>
 )}
 
       <div style={{ marginBottom: 20 }}>
