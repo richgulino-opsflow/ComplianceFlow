@@ -287,7 +287,7 @@ await loadWorkOrders()
 <img src="/logo.png" alt="Company Logo" width="120" />
 </button>
 <div>
- <strong>OpsFlow Tools:</strong>{' '}
+ <strong>ComplianceFlow Tools:</strong>{' '}
   <select
     value={selectedModule}
     onChange={(e) => setSelectedModule(e.target.value)}
@@ -295,10 +295,12 @@ await loadWorkOrders()
   >
     <option value="">Select</option>
     <option value="Dashboard">Dashboard</option>
-    <option value="Work Orders">Work Orders</option>
-    <option value="Accounting">Accounting</option>
+    <option value="Projects">Projects</option>
+    <option value="Contractors">Contractors</option>
+    <option value="Certified Payroll">Certified Payroll</option>
+    <option value="AA202">AA202</option>
     <option value="Reports">Reports</option>
-    <option value="Settings">Settings</option>
+    <option value="Administration">Administration</option>
 </select>
 
 {selectedModule === 'Work Orders' && (
@@ -383,7 +385,7 @@ style={{ backgroundColor: '#16a34a', color: 'white', padding: '10px 20px', borde
 </div>
 </div>
 {selectedModule === 'Dashboard' && (
-<h1>OpsFlow Operations Board</h1>
+<h1>ComplianceFlow Operations Board</h1>
 )}
 
       <div style={{ marginBottom: 20 }}>
